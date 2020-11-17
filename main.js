@@ -38,3 +38,22 @@ const db = {
     },
   },
 };
+
+// method for getting product name
+const getProductName = (obj) => {
+  return obj.displayedName.displayedName.value.join('');
+};
+
+// Остатки
+const getLeftoversFromShops = (obj, region) => {
+  const arrayListShops = [];
+
+  Object.entries(obj.stock.stocks[region]).forEach(
+    ([key, val]) => parseInt(val) > 0 && arrayListShops.push(key)
+  );
+
+  return arrayListShops;
+};
+
+console.log(getProductName(db));
+console.log(getLeftoversFromShops(db, 34));
