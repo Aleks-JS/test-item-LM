@@ -44,8 +44,8 @@ const getProductName = (obj) => {
   return obj.displayedName.displayedName.value.join('');
 };
 
-// Остатки
-const getLeftoversFromShops = (obj, region) => {
+// method for obtaining a list of stores with positive stock balances
+const getStoresWithPositiveStockBalances = (obj, region) => {
   const arrayListShops = [];
 
   Object.entries(obj.stock.stocks[region]).forEach(
@@ -54,6 +54,3 @@ const getLeftoversFromShops = (obj, region) => {
 
   return arrayListShops;
 };
-
-console.log(getProductName(db));
-console.log(getLeftoversFromShops(db, 34));
