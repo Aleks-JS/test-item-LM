@@ -39,18 +39,55 @@ const db = {
   },
 };
 
+// method for getting a list of stores with leftovers in a certain region
+const getStocksOfStoresList = (obj, region) => {
+  return Object.entries(obj.stock.stocks[region]);
+};
+
+// stocks of store list
+const stocksOFStore = getStocksOfStoresList(db, 34);
+
+// get stocks list
+const getStocksList = (obj, region) => {
+  return Object.values(obj.stock.stocks[region]);
+};
+
+/*========================== solution of the task ==============================*/
+
 // method for getting product name
 const getProductName = (obj) => {
   return obj.displayedName.displayedName.value.join('');
 };
 
+const productName = getProductName(db);
+
 // method for obtaining a list of stores with positive stock balances
-const getStoresWithPositiveStockBalances = (obj, region) => {
+const getStoresWithPositiveStockBalances = () => {
   const arrayListShops = [];
 
-  Object.entries(obj.stock.stocks[region]).forEach(
+  stocksOFStore.forEach(
     ([key, val]) => parseInt(val) > 0 && arrayListShops.push(key)
   );
 
   return arrayListShops;
 };
+
+// method for getting a store with the maximum amount of stock
+
+const stocksList = getStocksList(db, 34);
+
+const getMaximumAmountOfStock = () => {
+  const maximumBalance = stocksList.sort((a, b) => b - a)[0];
+  let result;
+  stocksOFStore.forEach(
+    ([key, val]) =>
+      val === maximumBalance &&
+      (result = `Максимальный остаток товара ${productName} есть в магазине №${key} в количестве ${maximumBalance} шт`)
+  );
+
+  return result;
+};
+
+console.log(productName);
+console.log(getStoresWithPositiveStockBalances());
+console.log(getMaximumAmountOfStock());
